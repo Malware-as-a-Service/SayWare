@@ -1,0 +1,17 @@
+# SPDX-FileCopyrightText: 2025 The SayWare development team
+#
+# SPDX-License-Identifier: CC0-1.0
+
+[graph]
+targets = ["x86_64-pc-windows-msvc"]
+all-features = true
+
+[licenses]
+allow = ["Apache-2.0", "BSD-3-Clause", "MIT", "GPL-3.0", "Unicode-3.0"]
+
+[bans]
+multiple-versions-include-dev = true
+
+[sources]
+unknown-registry = "deny"
+unknown-git = "deny"
