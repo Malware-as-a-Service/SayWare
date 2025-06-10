@@ -6,4 +6,4 @@ config:
   first-line-h1: false
   no-inline-html: false
 gitignore: true
-globs: ["**.md"]
+globs: ['**.md']
