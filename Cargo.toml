@@ -4,4 +4,4 @@
 
 [workspace]
 resolver = "3"
-members = ["sayware", "server"]
+members = ["malware", "server"]
