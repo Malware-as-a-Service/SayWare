@@ -7,13 +7,19 @@ use anyhow::Result;
 use config::{Config, Environment};
 use poem::{Route, Server, listener::TcpListener};
 use poem_openapi::OpenApiService;
+use secrecy::SecretString;
 use serde::Deserialize;
+use uuid::Uuid;
 
 mod api;
 
 #[derive(Debug, Default, Deserialize)]
 struct Configuration {
-    port: u32,
+    port: u16,
+    proxy_hostname: String,
+    proxy_port: u16,
+    instance_identifier: Uuid,
+    instance_secret: SecretString,
     sentence: String,
 }
 
