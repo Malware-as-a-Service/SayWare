@@ -1575,6 +1575,7 @@ name = "sayware"
 version = "0.1.0"
 dependencies = [
  "cfonts",
+ "sayware-types",
  "windows",
  "windows-core",
 ]
@@ -1588,6 +1589,7 @@ dependencies = [
  "poem",
  "poem-openapi",
  "reqwest",
+ "sayware-types",
  "secrecy",
  "serde",
  "tokio",
