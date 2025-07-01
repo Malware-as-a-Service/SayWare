@@ -2,9 +2,9 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use serde::{Deserialize, Serialize};
+use poem_openapi::Object;
 
-#[derive(Serialize, Deserialize)]
+#[derive(Object)]
 pub struct ExfiltratedData {
     pub operating_system: String,
     pub mac_address: String,
