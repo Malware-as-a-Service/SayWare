@@ -15,7 +15,7 @@ tokio = { version = "1.45.1", features = ["rt-multi-thread"] }
 config = { version = "0.15.11" }
 anyhow = { version = "1.0.98" }
 serde = { version = "1.0.219", features = ["derive"] }
-uuid = { version = "1.17.0", features = ["serde"] }
+uuid = { version = "1.17.0", features = ["v4", "serde"] }
 secrecy = { version = "0.10.3", features = ["serde"] }
 reqwest = { version = "0.12.21", features = ["json"] }
 sayware-types = { path = "../types" }
