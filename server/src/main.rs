@@ -7,7 +7,7 @@ use anyhow::Result;
 use config::{Config, Environment};
 use poem::{EndpointExt, Route, Server, listener::TcpListener};
 use poem_openapi::OpenApiService;
-use reqwest::Client;
+use reqwest::{Client, Url};
 use secrecy::{ExposeSecret, SecretString};
 use serde::Deserialize;
 use std::iter::once;
@@ -28,7 +28,8 @@ struct Configuration {
 #[derive(Clone)]
 pub struct State {
     proxy: Client,
-    proxy_url: String,
+    proxy_url: Url,
+    instance_identifier: Uuid,
 }
 
 #[tokio::main]
@@ -63,7 +64,8 @@ async fn main() -> Result<()> {
         .nest(format!("/{}", configuration.url_prefix), api)
         .data(State {
             proxy: ingrest,
-            proxy_url: configuration.proxy_url,
+            proxy_url: configuration.proxy_url.parse()?,
+            instance_identifier: configuration.instance_identifier,
         });
 
     Ok(
