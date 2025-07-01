@@ -3,22 +3,38 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use crate::api::routes::Sentence;
+use anyhow::Result;
+use config::{Config, Environment};
 use poem::{Route, Server, listener::TcpListener};
 use poem_openapi::OpenApiService;
-use std::{env, io::Error};
+use serde::Deserialize;
 
 mod api;
 
-#[tokio::main]
-async fn main() -> Result<(), Error> {
-    let port = env::var("PORT").expect("PORT must be set");
-    let sentence = env::var("SENTENCE").expect("SENTENCE must be set");
+#[derive(Debug, Default, Deserialize)]
+struct Configuration {
+    port: u32,
+    sentence: String,
+}
 
-    let api = OpenApiService::new(Sentence::new(sentence), "SayWare Server", "0.1.0")
-        .server(format!("https://localhost:{port}"));
+#[tokio::main]
+async fn main() -> Result<()> {
+    let configuration = Config::builder()
+        .add_source(Environment::default())
+        .build()?
+        .try_deserialize::<Configuration>()?;
+
+    let api = OpenApiService::new(
+        Sentence::new(configuration.sentence),
+        "SayWare Server",
+        "0.1.0",
+    )
+    .server(format!("https://localhost:{}", configuration.port));
     let application = Route::new().nest("/", api);
 
-    Server::new(TcpListener::bind(format!("0.0.0.0:{port}")))
-        .run(application)
-        .await
+    Ok(
+        Server::new(TcpListener::bind(format!("0.0.0.0:{}", configuration.port)))
+            .run(application)
+            .await?,
+    )
 }
