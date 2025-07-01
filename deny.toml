@@ -7,10 +7,19 @@ targets = ["x86_64-pc-windows-msvc"]
 all-features = true
 
 [licenses]
-allow = ["Apache-2.0", "BSD-3-Clause", "MIT", "GPL-3.0", "Unicode-3.0"]
+allow = [
+  "Apache-2.0",
+  "BSD-3-Clause",
+  "ISC",
+  "MIT",
+  "GPL-3.0",
+  "Unicode-3.0",
+  "Zlib",
+]
 
 [bans]
 multiple-versions-include-dev = true
+deny = ["rustls"]
 
 [sources]
 unknown-registry = "deny"
