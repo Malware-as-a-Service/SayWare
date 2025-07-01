@@ -5,10 +5,12 @@
 use crate::api::routes::{Exfiltration, Sentence};
 use anyhow::Result;
 use config::{Config, Environment};
-use poem::{Route, Server, listener::TcpListener};
+use poem::{EndpointExt, Route, Server, listener::TcpListener};
 use poem_openapi::OpenApiService;
-use secrecy::SecretString;
+use reqwest::Client;
+use secrecy::{ExposeSecret, SecretString};
 use serde::Deserialize;
+use std::iter::once;
 use uuid::Uuid;
 
 mod api;
@@ -23,6 +25,12 @@ struct Configuration {
     sentence: String,
 }
 
+#[derive(Clone)]
+pub struct State {
+    proxy: Client,
+    proxy_url: String,
+}
+
 #[tokio::main]
 async fn main() -> Result<()> {
     let configuration = Config::builder()
@@ -30,13 +38,33 @@ async fn main() -> Result<()> {
         .build()?
         .try_deserialize::<Configuration>()?;
 
+    let ingrest = Client::builder()
+        .default_headers(
+            once((
+                "X-Api-Key".parse()?,
+                format!(
+                    "{}.{}",
+                    configuration.instance_identifier,
+                    configuration.instance_secret.expose_secret()
+                )
+                .parse()?,
+            ))
+            .collect(),
+        )
+        .build()?;
+
     let api = OpenApiService::new(
         (Sentence::new(configuration.sentence), Exfiltration),
         "SayWare Server",
         "0.1.0",
     )
     .server(format!("https://localhost:{}", configuration.port));
-    let application = Route::new().nest(format!("/{}", configuration.url_prefix), api);
+    let application = Route::new()
+        .nest(format!("/{}", configuration.url_prefix), api)
+        .data(State {
+            proxy: ingrest,
+            proxy_url: configuration.proxy_url,
+        });
 
     Ok(
         Server::new(TcpListener::bind(format!("0.0.0.0:{}", configuration.port)))
