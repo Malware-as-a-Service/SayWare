@@ -16,8 +16,7 @@ mod api;
 #[derive(Debug, Default, Deserialize)]
 struct Configuration {
     port: u16,
-    proxy_hostname: String,
-    proxy_port: u16,
+    proxy_url: String,
     instance_identifier: Uuid,
     instance_secret: SecretString,
     sentence: String,
