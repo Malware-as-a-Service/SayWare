@@ -28,7 +28,7 @@ async fn main() -> Result<(), Error> {
     let sentence = env::var("SENTENCE").expect("SENTENCE must be set");
 
     let api = OpenApiService::new(Api::new(sentence), "SayWare Server", "1.0.0")
-        .server(format!("http://localhost:{port}"));
+        .server(format!("https://localhost:{port}"));
     let application = Route::new().nest("/", api);
 
     Server::new(TcpListener::bind(format!("0.0.0.0:{port}")))
