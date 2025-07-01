@@ -19,6 +19,7 @@ struct Configuration {
     proxy_url: String,
     instance_identifier: Uuid,
     instance_secret: SecretString,
+    url_prefix: String,
     sentence: String,
 }
 
@@ -35,7 +36,7 @@ async fn main() -> Result<()> {
         "0.1.0",
     )
     .server(format!("https://localhost:{}", configuration.port));
-    let application = Route::new().nest("/", api);
+    let application = Route::new().nest(format!("/{}", configuration.url_prefix), api);
 
     Ok(
         Server::new(TcpListener::bind(format!("0.0.0.0:{}", configuration.port)))
