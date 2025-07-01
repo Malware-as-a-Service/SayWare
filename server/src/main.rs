@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use crate::api::routes::Sentence;
+use crate::api::routes::{Exfiltration, Sentence};
 use anyhow::Result;
 use config::{Config, Environment};
 use poem::{Route, Server, listener::TcpListener};
@@ -31,7 +31,7 @@ async fn main() -> Result<()> {
         .try_deserialize::<Configuration>()?;
 
     let api = OpenApiService::new(
-        Sentence::new(configuration.sentence),
+        (Sentence::new(configuration.sentence), Exfiltration),
         "SayWare Server",
         "0.1.0",
     )
