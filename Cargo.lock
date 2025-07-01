@@ -1178,6 +1178,7 @@ dependencies = [
  "config",
  "poem",
  "poem-openapi",
+ "serde",
  "tokio",
 ]
 
