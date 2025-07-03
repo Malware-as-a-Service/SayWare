@@ -10,3 +10,4 @@ license = "GPL-3.0-or-later"
 
 [dependencies]
 poem-openapi = { version = "5.1.15" }
+serde = { version = "1.0.219", features = ["derive"] }
