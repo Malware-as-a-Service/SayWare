@@ -22,9 +22,9 @@ struct InstanceData {
 struct VictimData {
     address: String,
     operating_system_version: String,
-    mac_address: String,
-    hostname: String,
-    username: String,
+    mac_address: Option<String>,
+    hostname: Option<String>,
+    username: Option<String>,
 }
 
 pub struct Exfiltration;
