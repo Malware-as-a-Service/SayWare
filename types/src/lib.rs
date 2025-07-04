@@ -8,7 +8,7 @@ use serde::Serialize;
 #[derive(Serialize, Object)]
 pub struct ExfiltratedData {
     pub operating_system_version: String,
-    pub mac_address: String,
-    pub hostname: String,
-    pub username: String,
+    pub mac_address: Option<String>,
+    pub hostname: Option<String>,
+    pub username: Option<String>,
 }
