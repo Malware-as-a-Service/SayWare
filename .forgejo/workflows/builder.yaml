@@ -64,3 +64,14 @@ jobs:
             -Z build-std=std,panic_abort \
             -Z build-std-features="optimize_for_size" \
             -Z build-std-features=panic_immediate_abort
+      - name: Clean the commit message
+        id: clean-commit-message
+        run: |
+          MESSAGE=$(echo "${{ forge.event.head_commit.message }}" | tr -d "\n\r" | tr " " "_" | tr -cd "[:alnum:]_-")
+          echo "message=$MESSAGE" >> $FORGEJO_OUTPUT
+      - name: Upload the malware
+        if: steps.changes.outputs.configuration == 'true'
+        uses: https://code.forgejo.org/forgejo/upload-artifact@v4
+        with:
+          name: sayware-${{ steps.clean-commit-message.outputs.message }}.exe
+          path: target/x86_64-pc-windows-msvc/small-size/sayware.exe
