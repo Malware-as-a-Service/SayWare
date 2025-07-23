@@ -13,7 +13,8 @@ jobs:
     env:
       CARGO_TERM_COLOR: always
       CARGO_TARGET_X86_64_PC_WINDOWS_MSVC_LINKER: lld
-      RUSTFLAGS: -Lnative=./.xwin-cache/splat/crt/lib/x86_64 -Lnative=./.xwin-cache/splat/sdk/lib/um/x86_64 -Lnative=./.xwin-cache/splat/sdk/lib/ucrt/x86_64
+      RUSTFLAGS: -Lnative=./.xwin-cache/splat/crt/lib/x86_64 -Lnative=./.xwin-cache/splat/sdk/lib/um/x86_64
+        -Lnative=./.xwin-cache/splat/sdk/lib/ucrt/x86_64
     steps:
       - name: Checkout code
         uses: https://data.forgejo.org/actions/checkout@v4
@@ -49,8 +50,11 @@ jobs:
           path: .xwin-cache/
           key: xwin-${{ runner.os }}
       - name: Install Microsoft CRT/SDK headers and libraries
-        if: steps.changes.outputs.configuration == 'true' && steps.cache-xwin.outputs.cache-hit != 'true'
+        if: steps.changes.outputs.configuration == 'true' && steps.cache-xwin.outputs.cache-hit
+          != 'true'
         run: xwin --accept-license splat
       - name: Build Rust code
         if: steps.changes.outputs.configuration == 'true'
-        run: cargo build --target x86_64-pc-windows-msvc --bin sayware --profile small-size -Z build-std=std,panic_abort -Z build-std-features="optimize_for_size" -Z build-std-features=panic_immediate_abort
+        run: cargo build --target x86_64-pc-windows-msvc --bin sayware --profile small-size
+          -Z build-std=std,panic_abort -Z build-std-features="optimize_for_size" -Z
+          build-std-features=panic_immediate_abort
