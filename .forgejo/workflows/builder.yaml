@@ -65,6 +65,7 @@ jobs:
             -Z build-std-features="optimize_for_size" \
             -Z build-std-features=panic_immediate_abort
       - name: Clean the commit message
+        if: steps.changes.outputs.configuration == 'true'
         id: clean-commit-message
         run: |
           MESSAGE=$(echo "${{ forge.event.head_commit.message }}" | tr -d "\n\r" | tr " " "_" | tr -cd "[:alnum:]_-")
