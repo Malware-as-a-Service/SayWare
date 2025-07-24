@@ -10,9 +10,9 @@ SPDX-License-Identifier: GPL-3.0-or-later
     <img src="./assets/images/logo.svg" alt="Logo"/>
   </a>
 
-  <h3 align="center">SayWare</h3>
+<h3 align="center">SayWare</h3>
 
-  <p align="center">
+<p align="center">
     A simple and harmless malware that says something
     <br />
     <br />
@@ -72,8 +72,8 @@ Below are steps to run the server and the malware locally.
 
 ### :gear: Prerequisites
 
-You only need [Cargo] to build the project. You will also need the ``nightly``
-``x86_64-pc-windows-msvc`` target and the ``rust-src`` component.
+You only need [Cargo] to build the project. You will also need the `nightly`
+`x86_64-pc-windows-msvc` target and the `rust-src` component.
 
 ### :hammer_and_wrench: Run the server
 
@@ -91,9 +91,9 @@ the proxy and a database.
 
 1. Run the server!
 
-  ```sh
-  cargo build --bin sayware-server --release
-  ```
+   ```sh
+   cargo build --bin sayware-server --release
+   ```
 
 ### :hammer_and_wrench: Run the malware
 
@@ -107,16 +107,16 @@ the proxy and a database.
 
 1. Build the malware!
 
-  ```sh
-  cargo build --target x86_64-pc-windows-msvc \
-    --bin sayware --profile small-size \
-    -Z build-std=std,panic_abort \
-    -Z build-std-features="optimize_for_size" \
-    -Z build-std-features=panic_immediate_abort
-  ```
+   ```sh
+   cargo build --target x86_64-pc-windows-msvc \
+     --bin sayware --profile small-size \
+     -Z build-std=std,panic_abort \
+     -Z build-std-features="optimize_for_size" \
+     -Z build-std-features=panic_immediate_abort
+   ```
 
 After these steps, the malware will be in the
-``./target/x86_64-pc-windows-msvc/small-size/`` directory.
+`./target/x86_64-pc-windows-msvc/small-size/` directory.
 
 ## :construction_worker: Contributing
 
@@ -134,8 +134,8 @@ If you want, you can help me with any kind of work, for example:
 Distributed under the [GPL 3.0 or later] license.
 
 [cargo]: https://doc.rust-lang.org/stable/cargo/
+[environment variables file]: ./.env.template
 [gpl 3.0 or later]: ./LICENSES/GPL-3.0-or-later.txt
 [ingrest]: https://github.com/Malware-as-a-Service/IngRest/
-[platform]: https://github.com/Malware-as-a-Service/Platform/
 [malware configuration file]: ./malware.toml
-[environment variables file]: ./.env.template
+[platform]: https://github.com/Malware-as-a-Service/Platform/
