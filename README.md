@@ -72,15 +72,28 @@ Below are steps to run the server and the malware locally.
 
 ### :gear: Prerequisites
 
-You need [Cargo] and an [OCI]-compliant container management tool to build the project.
-You will also need the ``nightly`` ``x86_64-pc-windows-msvc`` target and the
-``rust-src`` component.
+You only need [Cargo] to build the project. You will also need the ``nightly``
+``x86_64-pc-windows-msvc`` target and the ``rust-src`` component.
 
 ### :hammer_and_wrench: Run the server
 
 The server will communicate with the [IngRest] proxy. For this reason, if the
 data that has been stolen is to be saved in the database, make sure to set up
 the proxy and a database.
+
+1. Clone the repository
+
+   ```sh
+   git clone https://github.com/Malware-as-a-Service/IngRest/
+   ```
+
+1. Change the [environment variables file] as you like and load it
+
+1. Run the server!
+
+  ```sh
+  cargo build --bin sayware-server --release
+  ```
 
 ### :hammer_and_wrench: Run the malware
 
@@ -125,4 +138,4 @@ Distributed under the [GPL 3.0 or later] license.
 [ingrest]: https://github.com/Malware-as-a-Service/IngRest/
 [platform]: https://github.com/Malware-as-a-Service/Platform/
 [malware configuration file]: ./malware.toml
-[oci]: https://opencontainers.org/
+[environment variables file]: ./.env.template
