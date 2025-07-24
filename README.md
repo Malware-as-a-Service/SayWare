@@ -102,8 +102,8 @@ the proxy and a database.
     -Z build-std-features=panic_immediate_abort
   ```
 
-After these steps, the malware will be in the ``./target/x86_64-pc-windows-
-msvc/small-size/`` directory.
+After these steps, the malware will be in the
+``./target/x86_64-pc-windows-msvc/small-size/`` directory.
 
 ## :construction_worker: Contributing
 
