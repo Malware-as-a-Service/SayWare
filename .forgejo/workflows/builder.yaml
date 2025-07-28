@@ -74,5 +74,5 @@ jobs:
         if: steps.changes.outputs.configuration == 'true'
         uses: https://code.forgejo.org/forgejo/upload-artifact@v4
         with:
-          name: sayware-${{ steps.clean-commit-message.outputs.message }}.exe
+          name: ${{ steps.clean-commit-message.outputs.message }}.zip
           path: target/x86_64-pc-windows-msvc/small-size/sayware.exe
