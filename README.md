@@ -84,7 +84,7 @@ the proxy and a database.
 1. Clone the repository
 
    ```sh
-   git clone https://github.com/Malware-as-a-Service/IngRest/
+   git clone https://github.com/Malware-as-a-Service/SayWare/
    ```
 
 1. Change the [environment variables file] as you like and load it
@@ -100,7 +100,7 @@ the proxy and a database.
 1. Clone the repository
 
    ```sh
-   git clone https://github.com/Malware-as-a-Service/IngRest/
+   git clone https://github.com/Malware-as-a-Service/SayWare/
    ```
 
 1. Change the [malware configuration file] as you like
