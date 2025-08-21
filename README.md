@@ -72,8 +72,8 @@ Below are steps to run the server and the malware locally.
 
 ### :gear: Prerequisites
 
-You only need [Cargo] to build the project. You will also need the `nightly`
-`x86_64-pc-windows-msvc` target and the `rust-src` component.
+You only need [Cargo] to build the project. You will also need the
+[nightly][rust nightly] `x86_64-pc-windows-msvc` target and the `rust-src` component.
 
 ### :hammer_and_wrench: Run the server
 
@@ -139,3 +139,4 @@ Distributed under the [GPL 3.0 or later] license.
 [ingrest]: https://github.com/Malware-as-a-Service/IngRest/
 [malware configuration file]: ./malware.toml
 [platform]: https://github.com/Malware-as-a-Service/Platform/
+[rust nightly]: https://doc.rust-lang.org/book/appendix-07-nightly-rust.html
