@@ -110,7 +110,7 @@ the proxy and a database.
    ```sh
    cargo build --target x86_64-pc-windows-msvc \
      --bin sayware --profile small-size \
-     -Z build-std=std,panic_abort \
+     -Z build-std=core,std,panic_abort \
      -Z build-std-features="optimize_for_size" \
      -Z build-std-features=panic_immediate_abort
    ```
