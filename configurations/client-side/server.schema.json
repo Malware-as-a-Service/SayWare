@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SayWare server build options",
+  "description": "Build options for the SayWare server",
+  "type": "object",
+  "properties": {
+    "sentence": {
+      "type": "string",
+      "description": "This is the sentence that the server will send to the malware for display."
+    }
+  }
+}
