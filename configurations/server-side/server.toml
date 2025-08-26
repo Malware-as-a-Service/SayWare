@@ -1,0 +1,11 @@
+# SPDX-FileCopyrightText: 2025 The SayWare development team
+#
+# SPDX-License-Identifier: CC0-1.0
+
+[port]
+function = "@randomPort()"
+type = "plaintext"
+
+[urlPrefix]
+function = "@randomPath()"
+type = "plaintext"
