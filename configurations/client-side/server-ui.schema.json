@@ -1,0 +1,10 @@
+{
+  "type": "VerticalLayout",
+  "elements": [
+    {
+      "type": "Control",
+      "label": "Sentence",
+      "scope": "#/properties/sentence"
+    }
+  ]
+}
