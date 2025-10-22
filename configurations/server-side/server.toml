@@ -7,5 +7,5 @@ function = "@randomPort(1024, 65535)"
 type = "plaintext"
 
 [urlPrefix]
-function = "@randomPath(5, 15)"
+function = "@randomPathPrefix(5, 15)"
 type = "plaintext"
