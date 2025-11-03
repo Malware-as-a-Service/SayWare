@@ -13,5 +13,5 @@ name = "sayware_types"
 path = "./src/lib.rs"
 
 [dependencies]
-poem-openapi = { version = "5.1.15" }
-serde = { version = "1.0.219", features = ["derive"] }
+poem-openapi = { version = "5.1.16" }
+serde = { version = "1.0.228", features = ["derive"] }
