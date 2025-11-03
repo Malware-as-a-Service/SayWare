@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: CC0-1.0
 
-FROM rust:1.88.0 as chef
+FROM docker.io/library/rust:1.88.0 as chef
 RUN rustup target add x86_64-unknown-linux-musl
 RUN cargo install sccache --version 0.10.0 && \
     cargo install cargo-chef --version 0.1.71 && \
@@ -34,7 +34,7 @@ RUN --mount=type=cache,target=/usr/local/cargo/registry \
     --mount=type=cache,target=$SCCACHE_DIR,sharing=locked \
     cargo build --bin sayware-server --release --target x86_64-unknown-linux-musl
 
-FROM alpine:3.22.0
+FROM docker.io/library/alpine:3.22.0
 RUN addgroup -g 1001 sayware && \
     adduser -D -u 1001 -G sayware sayware
 USER sayware
