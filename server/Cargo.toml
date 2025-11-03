@@ -13,6 +13,10 @@ name = "sayware-server"
 path = "./src/main.rs"
 
 [dependencies]
+reqwest = { version = "0.12.24", default-features = false, features = [
+  "json",
+  "rustls-tls",
+] }
 poem = { version = "3.1.12", default-features = false, features = ["rustls"] }
 poem-openapi = { version = "5.1.16" }
 tokio = { version = "1.48.0", features = ["rt-multi-thread"] }
@@ -22,9 +26,3 @@ serde = { version = "1.0.228", features = ["derive"] }
 uuid = { version = "1.18.1", features = ["v4", "serde"] }
 secrecy = { version = "0.10.3", features = ["serde"] }
 sayware-types = { path = "../types" }
-
-[patch.crates-io]
-reqwest = { version = "0.12.24", default-features = false, features = [
-  "json",
-  "rustls-tls",
-] }
