@@ -8,6 +8,10 @@ version = "0.1.0"
 edition = "2024"
 license = "GPL-3.0-or-later"
 
+[lib]
+name = "sayware_types"
+path = "./src/lib.rs"
+
 [dependencies]
 poem-openapi = { version = "5.1.15" }
 serde = { version = "1.0.219", features = ["derive"] }
