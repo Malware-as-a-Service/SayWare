@@ -5,7 +5,7 @@
 use crate::api::routes::{Exfiltration, Sentence};
 use anyhow::Result;
 use config::{Config, Environment};
-use poem::{EndpointExt, Route, Server, listener::TcpListener};
+use poem::{EndpointExt, Route, Server, listener::TcpListener, middleware::SizeLimit};
 use poem_openapi::OpenApiService;
 use reqwest::{Client, Url};
 use secrecy::{ExposeSecret, SecretString};
@@ -62,6 +62,7 @@ async fn main() -> Result<()> {
     .server(format!("https://localhost:{}", configuration.port));
     let application = Route::new()
         .nest(format!("/{}", configuration.url_prefix), api)
+        .with(SizeLimit::new(2048))
         .data(State {
             proxy: ingrest,
             proxy_url: configuration.proxy_url.parse()?,
