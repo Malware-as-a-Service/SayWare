@@ -19,7 +19,7 @@ allow = [
 
 [bans]
 multiple-versions-include-dev = true
-deny = ["rustls"]
+deny = ["openssl", "openssl-sys"]
 
 [sources]
 unknown-registry = "deny"
