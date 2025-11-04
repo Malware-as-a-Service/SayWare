@@ -22,7 +22,7 @@ impl Sentence {
 
 #[cfg(test)]
 mod tests {
-    use crate::api::routes::sentence::Sentence;
+    use crate::api::routes::Sentence;
     use poem::{Route, test::TestClient};
     use poem_openapi::OpenApiService;
 
