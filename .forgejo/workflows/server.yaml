@@ -1,0 +1,57 @@
+---
+# SPDX-FileCopyrightText: 2025 The SayWare development team
+#
+# SPDX-License-Identifier: CC0-1.0
+name: Build and push the server container
+on:
+  workflow_dispatch:
+    inputs:
+      containerfile_path:
+        description: Path to the Containerfile
+        required: true
+        type: string
+      container_name:
+        description: Name of the container image
+        required: true
+        type: string
+      container_version:
+        description: Version tag for the container
+        required: true
+        type: string
+concurrency:
+  group: server
+  cancel-in-progress: false
+jobs:
+  container:
+    name: Build and push the server container
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: https://data.forgejo.org/actions/checkout@v4
+      - name: Install Podman and Buildah
+        run: |
+          apt-get update && apt-get -y install podman buildah
+      - name: Create Docker configuration directory
+        run: |
+          mkdir -p /root/.docker && echo '{"auths":{}}' > /root/.docker/config.json
+      - name: Login to the registry
+        uses: https://github.com/redhat-actions/podman-login@v1
+        with:
+          registry: ${{ secrets.REGISTRY_URL }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+          auth_file_path: /tmp/podman-run-0/containers/auth.json
+      - name: Build the image
+        id: build
+        uses: https://github.com/redhat-actions/buildah-build@v2
+        with:
+          image: ${{ inputs.container_name }}
+          tags: ${{ inputs.container_version }}
+          containerfiles: ${{ inputs.containerfile_path }}
+          extra-args: --isolation=rootless --cap-add=all
+      - name: Push to the registry
+        uses: https://github.com/redhat-actions/push-to-registry@v2
+        with:
+          image: ${{ steps.build.outputs.image }}
+          tags: ${{ steps.build.outputs.tags }}
+          registry: ${{ secrets.REGISTRY_URL }}
