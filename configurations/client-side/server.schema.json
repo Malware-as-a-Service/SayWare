@@ -8,5 +8,6 @@
       "type": "string",
       "description": "This is the sentence that the server will send to the malware for display."
     }
-  }
+  },
+  "required": ["sentence"]
 }
