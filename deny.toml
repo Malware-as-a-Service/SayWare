@@ -11,15 +11,27 @@ allow = [
   "Apache-2.0",
   "BSD-3-Clause",
   "ISC",
+  "GPL-3.0-or-later",
   "MIT",
-  "GPL-3.0",
+  "MPL-2.0",
   "Unicode-3.0",
   "Zlib",
+]
+exceptions = [
+  { allow = [
+    "CDLA-Permissive-2.0",
+  ], crate = "webpki-roots" },
+  { allow = [
+    "OpenSSL",
+  ], crate = "aws-lc-sys" },
 ]
 
 [bans]
 multiple-versions-include-dev = true
-deny = ["openssl", "openssl-sys"]
+deny = [
+  { crate = "openssl", use-instead = "rustls" },
+  { crate = "openssl-sys", use-instead = "rustls" },
+]
 
 [sources]
 unknown-registry = "deny"
