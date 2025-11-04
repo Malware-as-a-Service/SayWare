@@ -19,3 +19,20 @@ impl Sentence {
         PlainText(self.sentence.clone())
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use crate::api::routes::sentence::Sentence;
+    use poem::{Route, test::TestClient};
+    use poem_openapi::OpenApiService;
+
+    #[tokio::test]
+    async fn test_get_sentence() {
+        let sentence = "Hello, World!";
+        let api = OpenApiService::new(Sentence::new(sentence.to_string()), "Sayware", "0.1.0");
+        let application = Route::new().nest("/", api);
+        let client = TestClient::new(application);
+
+        client.get("/").send().await.assert_text(sentence).await;
+    }
+}
