@@ -2,23 +2,33 @@
 #
 # SPDX-License-Identifier: CC0-1.0
 
-FROM docker.io/clux/muslrust:stable as chef
+FROM docker.io/clux/muslrust:nightly as chef
 RUN cargo install cargo-chef --version 0.1.73
 
 FROM chef AS planner
 WORKDIR /application/
-COPY ./server/Cargo.toml ./
+COPY ./Cargo.toml ./
 COPY ./Cargo.lock ./
-COPY ./server/src/ ./src/
+COPY ./malware/Cargo.toml ./malware/
+COPY ./malware/src/ ./malware/
+COPY ./server/Cargo.toml ./server/
+COPY ./server/src/ ./server/
+COPY ./types/Cargo.toml ./types/
+COPY ./types/src/ ./types/
 RUN cargo chef prepare --recipe-path recipe.json
 
 FROM chef as builder
 WORKDIR /application/
 COPY --from=planner /application/recipe.json recipe.json
 RUN cargo chef cook --bin sayware-server --release --target x86_64-unknown-linux-musl --recipe-path recipe.json
-COPY ./server/Cargo.toml ./
+COPY ./Cargo.toml ./
 COPY ./Cargo.lock ./
-COPY ./server/src/ ./src/
+COPY ./malware/Cargo.toml ./malware/
+COPY ./malware/src/ ./malware/
+COPY ./server/Cargo.toml ./server/
+COPY ./server/src/ ./server/
+COPY ./types/Cargo.toml ./types/
+COPY ./types/src/ ./types/
 RUN cargo build --bin sayware-server --release --target x86_64-unknown-linux-musl
 
 FROM docker.io/library/alpine:3.22.0

