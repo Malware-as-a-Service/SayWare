@@ -3,14 +3,21 @@
 # SPDX-License-Identifier: CC0-1.0
 
 [forge]
+registryUrlSecretName = "REGISTRY_URL"
+registryUsernameSecretName = "REGISTRY_USERNAME"
+registryPasswordSecretName = "REGISTRY_PASSWORD"
 buildingBranchVariableName = "BUILDING_BRANCH"
 configurationPathVariableName = "CONFIGURATION_PATH"
 
 [server]
 containerfilePath = "Containerfile"
+containerName = "sayware-server"
+containerVersion = "0.1.0"
+workflowName = "server.yaml"
 
 [malware]
 configurationPath = "malware.toml"
+workflowName = "malware.yaml"
 
 [configurations]
 
@@ -23,3 +30,9 @@ serverPath = "configurations/client-side/server.schema.json"
 serverUiPath = "configurations/client-side/server-ui.schema.json"
 malwarePath = "configurations/client-side/malware.schema.json"
 malwareUiPath = "configurations/client-side/malware-ui.schema.json"
+
+[configurations.outputs]
+instancePath = "configurations/outputs/instance.schema.json"
+instanceUiPath = "configurations/outputs/instance-ui.schema.json"
+victimsPath = "configurations/outputs/victims.schema.json"
+victimsUiPath = "configurations/outputs/victims-ui.schema.json"
