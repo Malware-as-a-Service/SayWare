@@ -26,3 +26,9 @@ serde = { version = "1.0.228", features = ["derive"] }
 uuid = { version = "1.18.1", features = ["v4", "serde"] }
 secrecy = { version = "0.10.3", features = ["serde"] }
 sayware-types = { path = "../types" }
+
+[dev-dependencies]
+poem = { version = "3.1.12", default-features = false, features = [
+  "rustls",
+  "test",
+] }
