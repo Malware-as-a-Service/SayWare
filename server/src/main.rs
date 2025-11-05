@@ -10,7 +10,7 @@ use poem_openapi::OpenApiService;
 use reqwest::{Client, Url};
 use secrecy::{ExposeSecret, SecretString};
 use serde::Deserialize;
-use std::iter::once;
+use std::{iter::once, time::Duration};
 use uuid::Uuid;
 
 mod api;
@@ -40,6 +40,7 @@ async fn main() -> Result<()> {
         .try_deserialize::<Configuration>()?;
 
     let ingrest = Client::builder()
+        .timeout(Duration::from_secs(30))
         .default_headers(
             once((
                 "X-Api-Key".parse()?,
