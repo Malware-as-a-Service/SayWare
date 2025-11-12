@@ -1,0 +1,40 @@
+{
+  "type": "Control",
+  "options": {
+    "detail": {
+      "type": "VerticalLayout",
+      "elements": [
+        {
+          "type": "Control",
+          "scope": "#/properties/identifier",
+          "label": "Identifier"
+        },
+        {
+          "type": "Control",
+          "scope": "#/properties/address",
+          "label": "IP Address"
+        },
+        {
+          "type": "Control",
+          "scope": "#/properties/operating_system_version",
+          "label": "Operating System"
+        },
+        {
+          "type": "Control",
+          "scope": "#/properties/mac_address",
+          "label": "MAC Address"
+        },
+        {
+          "type": "Control",
+          "scope": "#/properties/hostname",
+          "label": "Hostname"
+        },
+        {
+          "type": "Control",
+          "scope": "#/properties/username",
+          "label": "Username"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "title": "SayWare instance data",
+  "description": "Data related to the instance",
+  "type": "object",
+  "properties": {
+    "connection_number": {
+      "type": "integer",
+      "description": "Total number of victim connections to this instance",
+      "default": 0,
+      "minimum": 0
+    }
+  },
+  "required": [
+    "connection_number"
+  ]
+}

