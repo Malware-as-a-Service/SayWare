@@ -111,12 +111,12 @@ the proxy and a database.
    cargo build --target x86_64-pc-windows-msvc \
      --bin sayware --profile small-size \
      -Z build-std=core,std,panic_abort \
-     -Z build-std-features="optimize_for_size" \
-     -Z build-std-features=panic_immediate_abort
+     -Z build-std-features="optimize_for_size"
    ```
 
 After these steps, the malware will be in the
-`./target/x86_64-pc-windows-msvc/small-size/` directory.
+`./target/x86_64-pc-windows-msvc/small-size/` directory. For cross-compilation,
+please refer to the [malware CI/CD][malware.yaml].
 
 ## :construction_worker: Contributing
 
@@ -138,5 +138,6 @@ Distributed under the [GPL 3.0 or later] license.
 [gpl 3.0 or later]: ./LICENSES/GPL-3.0-or-later.txt
 [ingrest]: https://github.com/Malware-as-a-Service/IngRest/
 [malware configuration file]: ./malware.toml
+[malware.yaml]: ./.forgejo/workflows/malware.yaml
 [platform]: https://github.com/Malware-as-a-Service/Platform/
 [rust nightly]: https://doc.rust-lang.org/book/appendix-07-nightly-rust.html
