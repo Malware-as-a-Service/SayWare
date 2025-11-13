@@ -32,8 +32,9 @@ jobs:
         run: |
           apt-get update && apt-get -y install podman buildah
       - name: Create Docker configuration directory
-        run: |
-          mkdir -p /root/.docker && echo '{"auths":{}}' > /root/.docker/config.json
+        run: |-
+          mkdir -p /root/.docker &&
+          echo '{"auths":{}}' > /root/.docker/config.json
       - name: Login to the registry
         uses: https://github.com/redhat-actions/podman-login@v1
         with:
