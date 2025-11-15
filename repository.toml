@@ -3,11 +3,15 @@
 # SPDX-License-Identifier: CC0-1.0
 
 [forge]
-registryUrlSecretName = "REGISTRY_URL"
-registryUsernameSecretName = "REGISTRY_USERNAME"
-registryPasswordSecretName = "REGISTRY_PASSWORD"
-buildingBranchVariableName = "BUILDING_BRANCH"
-configurationPathVariableName = "CONFIGURATION_PATH"
+
+[forge.secrets]
+registryUrlName = "REGISTRY_URL"
+registryUsernameName = "REGISTRY_USERNAME"
+registryPasswordName = "REGISTRY_PASSWORD"
+
+[forge.variables]
+buildingBranchName = "BUILDING_BRANCH"
+configurationPathName = "CONFIGURATION_PATH"
 
 [server]
 containerfilePath = "Containerfile"
