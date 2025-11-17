@@ -12,10 +12,19 @@ buildingBranch = "BUILDING_BRANCH"
 configurationPath = "CONFIGURATION_PATH"
 
 [server]
-containerfilePath = "Containerfile"
-containerName = "sayware-server"
-containerVersion = "0.1.0"
 workflow = "server.yaml"
+
+[server.containerfilePath]
+name = "containerfile_path"
+value = "Containerfile"
+
+[server.containerName]
+name = "container_name"
+value = "sayware-server"
+
+[server.containerVersion]
+name = "container_version"
+value = "0.1.0"
 
 [malware]
 configurationPath = "malware.toml"
