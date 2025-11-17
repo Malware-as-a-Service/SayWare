@@ -7,10 +7,6 @@ registryUrl = "REGISTRY_URL"
 registryUsername = "REGISTRY_USERNAME"
 registryPassword = "REGISTRY_PASSWORD"
 
-[forge.variables]
-buildingBranch = "BUILDING_BRANCH"
-configurationPath = "CONFIGURATION_PATH"
-
 [server]
 workflow = "server.yaml"
 
@@ -29,6 +25,10 @@ value = "0.1.0"
 [malware]
 configurationPath = "malware.toml"
 workflow = "malware.yaml"
+
+[malware.artifactName]
+name = "artifact_name"
+value = "malware.zip"
 
 [configurations.serverSide]
 server = "configurations/server-side/server.toml"
