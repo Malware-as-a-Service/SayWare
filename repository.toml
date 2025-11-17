@@ -2,41 +2,41 @@
 #
 # SPDX-License-Identifier: CC0-1.0
 
-[forge]
-
 [forge.secrets]
-registryUrlName = "REGISTRY_URL"
-registryUsernameName = "REGISTRY_USERNAME"
-registryPasswordName = "REGISTRY_PASSWORD"
+registryUrl = "REGISTRY_URL"
+registryUsername = "REGISTRY_USERNAME"
+registryPassword = "REGISTRY_PASSWORD"
 
 [forge.variables]
-buildingBranchName = "BUILDING_BRANCH"
-configurationPathName = "CONFIGURATION_PATH"
+buildingBranch = "BUILDING_BRANCH"
+configurationPath = "CONFIGURATION_PATH"
 
 [server]
 containerfilePath = "Containerfile"
 containerName = "sayware-server"
 containerVersion = "0.1.0"
-workflowName = "server.yaml"
+workflow = "server.yaml"
 
 [malware]
 configurationPath = "malware.toml"
-workflowName = "malware.yaml"
-
-[configurations]
+workflow = "malware.yaml"
 
 [configurations.serverSide]
-serverPath = "configurations/server-side/server.toml"
-malwarePath = "configurations/server-side/malware.toml"
+server = "configurations/server-side/server.toml"
+malware = "configurations/server-side/malware.toml"
 
-[configurations.clientSide]
-serverPath = "configurations/client-side/server.schema.json"
-serverUiPath = "configurations/client-side/server-ui.schema.json"
-malwarePath = "configurations/client-side/malware.schema.json"
-malwareUiPath = "configurations/client-side/malware-ui.schema.json"
+[configurations.clientSide.server]
+schema = "configurations/client-side/server.schema.json"
+ui = "configurations/client-side/server-ui.schema.json"
 
-[configurations.outputs]
-instancePath = "configurations/outputs/instance.schema.json"
-instanceUiPath = "configurations/outputs/instance-ui.schema.json"
-victimsPath = "configurations/outputs/victims.schema.json"
-victimsUiPath = "configurations/outputs/victims-ui.schema.json"
+[configurations.clientSide.malware]
+schema = "configurations/client-side/malware.schema.json"
+ui = "configurations/client-side/malware-ui.schema.json"
+
+[configurations.outputs.instance]
+schema = "configurations/outputs/instance.schema.json"
+ui = "configurations/outputs/instance-ui.schema.json"
+
+[configurations.outputs.victims]
+schema = "configurations/outputs/victims.schema.json"
+ui = "configurations/outputs/victims-ui.schema.json"
