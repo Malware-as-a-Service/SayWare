@@ -31,6 +31,15 @@ jobs:
       - name: Install Podman and Buildah
         run: |
           apt-get update && apt-get -y install podman buildah
+      - name: Configure storage to use vfs
+        run: |
+          mkdir -p /etc/containers
+          cat > /etc/containers/storage.conf <<EOF
+          [storage]
+          driver = "vfs"
+          runroot = "/run/containers/storage"
+          graphroot = "/var/lib/containers/storage"
+          EOF
       - name: Create Docker configuration directory
         run: |-
           mkdir -p /root/.docker &&
@@ -49,7 +58,7 @@ jobs:
           image: ${{ inputs.container_name }}
           tags: ${{ inputs.container_version }}
           containerfiles: ${{ inputs.containerfile_path }}
-          extra-args: --isolation=rootless --cap-add=all
+          extra-args: --isolation=chroot
       - name: Push to the registry
         uses: https://github.com/redhat-actions/push-to-registry@v2
         with:
