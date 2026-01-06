@@ -25,6 +25,7 @@ value = "0.1.0"
 [malware]
 configurationPath = "malware.toml"
 workflow = "malware.yaml"
+commitShaName = "commit_sha"
 
 [malware.artifactName]
 name = "artifact_name"
