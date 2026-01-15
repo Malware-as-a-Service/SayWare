@@ -43,10 +43,10 @@ ui = "configurations/client-side/server-ui.schema.json"
 schema = "configurations/client-side/malware.schema.json"
 ui = "configurations/client-side/malware-ui.schema.json"
 
-[configurations.outputs.instance]
+[configurations.states.instance]
 schema = "configurations/outputs/instance.schema.json"
 ui = "configurations/outputs/instance-ui.schema.json"
 
-[configurations.outputs.victims]
+[configurations.states.victims]
 schema = "configurations/outputs/victims.schema.json"
 ui = "configurations/outputs/victims-ui.schema.json"
